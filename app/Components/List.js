@@ -5,15 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    FlatList,
-} from 'react-native';
-
-
+import {StyleSheet, Text, View, FlatList,} from 'react-native';
 
 export default class List  extends Component {
     constructor(props){
@@ -21,21 +13,20 @@ export default class List  extends Component {
         this.state= {
             array: [],
             page: 1,
-            idKey: 0
         }
     }
     loadMore (){
-        console.log('Load more');
         this.setState({
             page: this.state.page + 1
         }, ()=> {
             fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.bacsithuy.org%2Fchuyen-muc%2Fsinh-san-nhan-giong%2Fpage%2F'+this.state.page+'%2Frss')
             .then((response) => response.json())
             .then((responseJson)=> {
-                console.log(responseJson);
+
                 this.setState({
                     array:this.state.array.concat(responseJson.items)
                 })
+                console.log(responseJson.items);
             })
         })
     }
@@ -68,7 +59,6 @@ export default class List  extends Component {
         fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.bacsithuy.org%2Fchuyen-muc%2Fsinh-san-nhan-giong%2Fpage%2F'+this.state.page+'%2Frss')
         .then((response) => response.json())
         .then((responseJson)=> {
-            console.log(responseJson);
             this.setState({
                 array:responseJson.items
             })
